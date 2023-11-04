@@ -7,11 +7,13 @@
 #include <UI.h>
 #include <TextUIElement.h>
 #include <ButtonUIElement.h>
+#include <TextureUIElement.h>
 
 class TitleScreenUI : public UI {
 private:
     TextUIElement mainTitle;
     ButtonUIElement playGame;
+    TextureUIElement background;
 
     const char* next_stage = nullptr;
 
