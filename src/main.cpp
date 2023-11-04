@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <UI.h>
 #include <SimpleUIElement.h>
+#include <MenuMeta.h>
 
 int main() {
   const int screenWidth = 800;
@@ -8,6 +9,8 @@ int main() {
 
   InitWindow(screenWidth, screenHeight, "OpenField");
   SetTargetFPS(60);
+
+  MenuMeta menuData {};
 
   UI ui {};
 
