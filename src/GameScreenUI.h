@@ -5,17 +5,13 @@
 #pragma once
 
 #include <UI.h>
-#include <Field2D.h>
 
 class GameScreenUI : public UI {
 private:
-    Field2D field;
 
 public:
-    GameScreenUI() :
-            field {10, 10, 10} {
+    GameScreenUI() {
 
-        this->add_element(&field);
     }
 
     ~GameScreenUI() = default;
