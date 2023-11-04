@@ -22,12 +22,6 @@ Field2D::Field2D(int rows, int columns, int mines) {
     }
 
     add_mines();
-
-    // this is mostly for debugging
-
-
-
-
 }
 
 void Field2D::add_mines() {
@@ -40,7 +34,6 @@ void Field2D::add_mines() {
 
         field.at(random_variable % rows).at(random_variable / rows).isMine = true;
         count_around(random_variable % rows, random_variable / rows);
-
     }
 }
 
