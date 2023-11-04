@@ -4,18 +4,19 @@
 
 #pragma once
 
-
 class Cell {
 private:
     bool isClicked { false };
     bool isFlagged { false };
-public:
-    int numMines{ -1 };
-    bool isMine{ false };
 
-    Cell() = default;
+public:
+    int x;
+    int y;
+    bool isMine { false };
+    int numMines { -1 };
+    Cell(int xLocation, int yLocation);
     ~Cell() = default;
 
-    void draw2D();
-    int mouse_click(MoueClickButton button);
+    int what_to_draw();
+    int mouse_click(int button);
 };
