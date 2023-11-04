@@ -1,23 +1,34 @@
-#include "raylib.h"
+#include <raylib.h>
+#include <UI.h>
+#include <SimpleUIElement.h>
 
 int main(void) {
   const int screenWidth = 800;
   const int screenHeight = 450;
 
-  InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+  InitWindow(screenWidth, screenHeight, "OpenField");
+  SetTargetFPS(60);
 
-  SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+  UI ui {};
 
-  while (!WindowShouldClose()) // Detect window close button or ESC key
+  // ---- ADD YOUR CLASSES HERE ----
+  SimpleElement simple {};
+  ui.add_element(&simple);
+
+  // ----- END ADD YOUR CLASSES HERE ----
+
+  ui.init_all();
+
+  while (!WindowShouldClose())
   {
-    BeginDrawing();
+      ui.updateUI();
 
-    ClearBackground(RAYWHITE);
+      BeginDrawing();
+      ClearBackground(RAYWHITE);
 
-    DrawText("Congrats! You created your first window!", 190, 200, 20,
-             LIGHTGRAY);
+      ui.draw2D_all();
 
-    EndDrawing();
+      EndDrawing();
   }
 
   CloseWindow(); // Close window and OpenGL context
