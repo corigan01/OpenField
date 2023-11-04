@@ -1,19 +1,16 @@
 #include <raylib.h>
-#include <UI.h>
-#include <SimpleUIElement.h>
+#include <MenuMeta.h>
+#include <SimpleStartScreenUI.h>
 
-int main(void) {
+int main() {
   const int screenWidth = 800;
   const int screenHeight = 450;
 
   InitWindow(screenWidth, screenHeight, "OpenField");
   SetTargetFPS(60);
 
-  UI ui {};
+  MenuMeta menuData {};
 
-  // ---- ADD YOUR CLASSES HERE ----
-  SimpleElement simple {};
-  ui.add_element(&simple);
   // Cell Drawing Class
   //   - Explored and unexplored cells
   //   - Number of nearby mines  (overlay)
@@ -32,18 +29,17 @@ int main(void) {
   //     the board, decreasing volume based on distance from first bomb
   //     with random minor pitch shifts
 
+  SimpleStartScreenUI simple {};
+  menuData.add_menu("simple_start", &simple);
 
-  // ----- END ADD YOUR CLASSES HERE ----
+  menuData.switch_menu("simple_start");
 
-  ui.init_all();
-
-  while (!WindowShouldClose())
-  {
-      ui.updateUI();
+  while (!WindowShouldClose()) {
+      menuData.update();
 
       BeginDrawing();
       ClearBackground(RAYWHITE);
-      ui.draw2D_all();
+      menuData.draw2D();
 
       EndDrawing();
   }

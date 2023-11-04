@@ -24,12 +24,12 @@ void UI::updateUI() {
     Vector2 mouse_pos = GetMousePosition();
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
         for (auto &element : m_elements) {
-            element->mouse_click(mouse_pos, UIElement::MoueClickButton::MOUSE_CLICK_RIGHT);
+            element->mouse_click(mouse_pos, UIElement::MouseEventType::MOUSE_CLICK_RIGHT);
         }
     }
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         for (auto &element : m_elements) {
-            element->mouse_click(mouse_pos, UIElement::MoueClickButton::MOUSE_CLICK_LEFT);
+            element->mouse_click(mouse_pos, UIElement::MouseEventType::MOUSE_CLICK_LEFT);
         }
     }
 }

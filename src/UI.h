@@ -17,6 +17,9 @@ public:
     UI() = default;
     ~UI() = default;
 
+    // Handle your own control of UI
+    virtual const char* finished_event_control() = 0;
+
     // Add element to the handler of the elements
     void add_element(UIElement *element);
 
