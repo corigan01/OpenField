@@ -6,10 +6,8 @@
 
 SimpleStartScreenUI::SimpleStartScreenUI() {
     this->add_element(&m_simple);
-};
+}
 
-SimpleStartScreenUI::~SimpleStartScreenUI() = default;
-
-const char* SimpleStartScreenUI::finished_event_control() override {
+const char* SimpleStartScreenUI::finished_event_control() {
     return (const char*)nullptr;
 }
