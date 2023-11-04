@@ -20,6 +20,9 @@ public:
     // Handle your own control of UI
     virtual const char* finished_event_control() = 0;
 
+    // update event
+    virtual void update_event();
+
     // Add element to the handler of the elements
     void add_element(UIElement *element);
 
