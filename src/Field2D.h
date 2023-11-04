@@ -10,8 +10,10 @@
 class Field2D : public UIElement {
 private:
     std::vector<std::vector<Cell>>field;
-    const int cellWidth = 25;
-    const int cellHeight = 25;
+    const int cell_width = 25;
+    const int cell_height = 25;
+    const int start_x = 50;
+    const int start_y = 50;
 
 public:
     Field2D(int rows, int columns, int mines);
