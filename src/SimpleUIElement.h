@@ -16,5 +16,5 @@ public:
 
     void init() override;
     void draw2D() override;
-    void mouse_click(Vector2 pos, MoueClickButton button) override;
+    void mouse_click(Vector2 pos, MouseEventType button) override;
 };
