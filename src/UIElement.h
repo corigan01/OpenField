@@ -13,9 +13,10 @@ public:
         MOUSE_CLICK_RIGHT
     };
 
-    virtual void init() = 0;
+    virtual void init() {};
     virtual void draw2D() = 0;
-    virtual void mouse_click(Vector2 pos, MouseEventType button) = 0;
+    virtual void update() {};
+    virtual void mouse_click(Vector2 pos, MouseEventType button) {};
 };
 
 

@@ -8,6 +8,8 @@ void UI::add_element(UIElement *element) {
     m_elements.push_back(element);
 }
 
+void UI::update_event() {}
+
 void UI::init_all() {
     for (auto &element : m_elements) {
         element->init();
@@ -15,6 +17,7 @@ void UI::init_all() {
 }
 
 void UI::draw2D_all() {
+    update_event();
     for (auto &element : m_elements) {
         element->draw2D();
     }

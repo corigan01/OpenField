@@ -4,10 +4,6 @@
 
 #include "SimpleUIElement.h"
 
-void SimpleElement::init() {
-// Do nothing
-}
-
 void SimpleElement::draw2D() {
     const char* draw_str = m_mouse_clicked_flag ? "Mouse Down Flag Active" : "Mouse Down Flag Inactive";
     DrawText(draw_str, 0, 0, 20, BLACK);
