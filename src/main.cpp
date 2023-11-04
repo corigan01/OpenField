@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include <MenuMeta.h>
 #include <TitleScreenUI.h>
-#include <SimpleStartScreenUI.h>
+#include <GameScreenUI.h>
 
 
 int main() {
@@ -37,7 +37,7 @@ int main() {
   TitleScreenUI titleScreen {};
   menuData.add_menu("title", &titleScreen);
 
-  SimpleStartScreenUI play {};
+  GameScreenUI play {};
   menuData.add_menu("play", &play);
 
   menuData.switch_menu("title");
