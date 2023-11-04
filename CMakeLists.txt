@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(cube LANGUAGES CXX)
+project(openfield LANGUAGES CXX)
 
 include(FetchContent)
 set(FETCHCONTENT_QUIET FALSE)
@@ -21,7 +21,7 @@ set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/")
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE ${CXX})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
-set_property(TARGET cube PROPERTY CXX_STANDARD 20)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 # Setting ASSETS_PATH
