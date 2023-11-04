@@ -8,14 +8,14 @@
 
 class UIElement {
 public:
-    enum class MoueClickButton {
+    enum class MouseEventType {
         MOUSE_CLICK_LEFT,
         MOUSE_CLICK_RIGHT
     };
 
     virtual void init() = 0;
     virtual void draw2D() = 0;
-    virtual void mouse_click(Vector2 pos, MoueClickButton button) = 0;
+    virtual void mouse_click(Vector2 pos, MouseEventType button) = 0;
 };
 
 
