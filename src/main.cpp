@@ -1,7 +1,6 @@
 #include <raylib.h>
-#include <UI.h>
-#include <SimpleUIElement.h>
 #include <MenuMeta.h>
+#include <SimpleStartScreenUI.h>
 
 int main() {
   const int screenWidth = 800;
@@ -12,24 +11,18 @@ int main() {
 
   MenuMeta menuData {};
 
-  UI ui {};
+  SimpleStartScreenUI simple {};
+  menuData.add_menu("simple_start", &simple);
 
-  // ---- ADD YOUR CLASSES HERE ----
-  SimpleElement simple {};
-  ui.add_element(&simple);
+  menuData.switch_menu("simple_start");
 
-  // ----- END ADD YOUR CLASSES HERE ----
-
-  ui.init_all();
-
-  while (!WindowShouldClose())
-  {
-      ui.updateUI();
+  while (!WindowShouldClose()) {
+      menuData.update();
 
       BeginDrawing();
       ClearBackground(RAYWHITE);
 
-      ui.draw2D_all();
+      menuData.draw2D();
 
       EndDrawing();
   }
