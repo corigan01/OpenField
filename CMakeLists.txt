@@ -16,7 +16,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(raylib)
 
 file(GLOB_RECURSE CXX CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp")
-set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/")
+set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/*.h")
 
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE ${CXX})
