@@ -11,7 +11,9 @@ int main(void) {
 
   UI ui {};
 
-  SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+  // ---- ADD YOUR CLASSES HERE ----
+  SimpleElement simple {};
+  ui.add_element(&simple);
 
   // ----- END ADD YOUR CLASSES HERE ----
 
