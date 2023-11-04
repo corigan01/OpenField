@@ -4,9 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
-#include "Field2D.h"
-
-
+#include <Field2D.h>
 #include <chrono>
 
 Field2D::Field2D(int rows, int columns, int mines) {
@@ -106,11 +104,11 @@ void Field2D::draw2D() {
     }
 }
 
-void Field2D::mouse_click(Vector2 pos, MoueClickButton button) {
+void Field2D::mouse_click(Vector2 pos, MouseEventType button) {
     if (pos.y >= start_y && pos.y <= (start_y + (rows * cell_height)) && pos.x >= start_x && pos.x <= (start_x + (columns * cell_width))) {
         int row = ((int) pos.y - start_y) / cell_height;
         int column = ((int) pos.x - start_x) / cell_width;
-        int b = button == UIElement::MoueClickButton::MOUSE_CLICK_LEFT ? 0 : 1;
+        int b = button == UIElement::MouseEventType::MOUSE_CLICK_LEFT ? 0 : 1;
         int click_event = field.at(row).at(column).mouse_click((b));
         if (click_event == 1) {
             spaces_remaining--;
@@ -136,7 +134,7 @@ void Field2D::mouse_click(Vector2 pos, MoueClickButton button) {
 void Field2D::clear_around(int row, int column) {
     for (int k = (0 > row - 1 ? 0 : row - 1); k < (rows < row + 2 ? rows : row + 2); k++) {
         for (int l = (0 > column - 1 ? 0 : column - 1); l < (columns < column + 2 ? columns : column + 2); l++) {
-            mouse_click(Vector2(start_x + (cell_height * l), start_y + (cell_height * k)), UIElement::MoueClickButton::MOUSE_CLICK_LEFT);
+            mouse_click(Vector2(start_x + (cell_height * l), start_y + (cell_height * k)), UIElement::MouseEventType::MOUSE_CLICK_LEFT);
         }
     }
 }

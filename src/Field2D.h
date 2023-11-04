@@ -4,8 +4,8 @@
 
 #pragma once
 #include <vector>
-#include "UIElement.h"
-#include "Cell.h"
+#include <UIElement.h>
+#include <Cell.h>
 
 class Field2D : public UIElement {
 private:
@@ -31,5 +31,5 @@ public:
 
     void init() override;
     void draw2D() override;
-    void mouse_click(Vector2 pos, MoueClickButton button) override;
+    void mouse_click(Vector2 pos, MouseEventType button) override;
 };
