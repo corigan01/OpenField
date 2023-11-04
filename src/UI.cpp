@@ -2,7 +2,7 @@
 // Created by corigan01 on 11/3/23.
 //
 
-#include "UI.h"
+#include <UI.h>
 
 void UI::add_element(UIElement *element) {
     m_elements.push_back(element);
@@ -24,6 +24,10 @@ void UI::draw2D_all() {
 }
 
 void UI::updateUI() {
+    for (auto &element : m_elements) {
+        element->update();
+    }
+
     Vector2 mouse_pos = GetMousePosition();
     if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
         for (auto &element : m_elements) {

@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <UI.h>
-#include <SimpleUIElement.h>
+#include "UI.h"
+#include "SimpleUIElement.h"
 
 class SimpleStartScreenUI : public UI {
 private:
