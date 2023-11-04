@@ -50,6 +50,7 @@ int main() {
       ClearBackground(RAYWHITE);
       menuData.draw2D();
 
+      DrawFPS(10, 10);
       EndDrawing();
   }
 
