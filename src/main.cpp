@@ -1,11 +1,13 @@
 #include <raylib.h>
 #include <MenuMeta.h>
+#include <TitleScreenUI.h>
 #include <SimpleStartScreenUI.h>
 
 int main() {
   const int screenWidth = 800;
   const int screenHeight = 450;
 
+  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
   InitWindow(screenWidth, screenHeight, "OpenField");
   SetTargetFPS(60);
 
@@ -29,10 +31,13 @@ int main() {
   //     the board, decreasing volume based on distance from first bomb
   //     with random minor pitch shifts
 
-  SimpleStartScreenUI simple {};
-  menuData.add_menu("simple_start", &simple);
+  TitleScreenUI titleScreen {};
+  menuData.add_menu("title", &titleScreen);
 
-  menuData.switch_menu("simple_start");
+  SimpleStartScreenUI play {};
+  menuData.add_menu("play", &play);
+
+  menuData.switch_menu("title");
 
   while (!WindowShouldClose()) {
       menuData.update();
