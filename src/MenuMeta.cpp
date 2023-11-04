@@ -3,10 +3,11 @@
 //
 
 #include "MenuMeta.h"
+#include <cstring>
 
 MenuMeta::MenuChunk* MenuMeta::find_menu(const char* name) {
     for (auto& chunk : m_uis) {
-        if (chunk.name == name) {
+        if (strcmp(chunk.name, name) == 0) {
             return &chunk;
         }
     }
@@ -27,6 +28,7 @@ int MenuMeta::switch_menu(const char* menu_to_start) {
         return -1;
     }
 
+    SetWindowTitle(menu->name);
     menu->ui->init_all();
     current_ui = menu;
 }
@@ -51,5 +53,11 @@ void MenuMeta::update() {
         return;
     }
 
-    current_ui = find_menu(maybe_next_screen);
+    MenuChunk* maybe_menu = find_menu(maybe_next_screen);
+    if (!maybe_menu) {
+        return;
+    }
+
+    SetWindowTitle(maybe_menu->name);
+    current_ui = maybe_menu;
 }
