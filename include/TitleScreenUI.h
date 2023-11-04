@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include <UI.h>
-#include <TextUIElement.h>
-#include <ButtonUIElement.h>
+#include "UI.h"
+#include "TextUIElement.h"
+#include "ButtonUIElement.h"
 
 class TitleScreenUI : public UI {
 private:
