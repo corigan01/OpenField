@@ -5,9 +5,11 @@
 
 int main() {
   const int screenWidth = 800;
-  const int screenHeight = 450;
+  const int screenHeight = 600;
 
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+  SetConfigFlags(FLAG_MSAA_4X_HINT);
+
   InitWindow(screenWidth, screenHeight, "OpenField");
   SetTargetFPS(60);
 

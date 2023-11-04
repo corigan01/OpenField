@@ -11,10 +11,6 @@ ButtonUIElement::ButtonUIElement(int x, int y, int width, int height) {
     this->height = height;
 }
 
-void ButtonUIElement::init() {
-
-}
-
 void ButtonUIElement::draw2D() {
     DrawRectangle(x, y, width, height, BLUE);
 }

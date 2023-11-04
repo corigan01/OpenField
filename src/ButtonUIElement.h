@@ -17,7 +17,6 @@ public:
     ButtonUIElement(int x, int y, int width, int height);
     ~ButtonUIElement() = default;
 
-    void init() override;
     void draw2D() override;
     void mouse_click(Vector2 pos, MouseEventType button) override;
     bool is_clicked();

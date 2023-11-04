@@ -15,9 +15,7 @@ private:
 
 public:
     TextUIElement(const char* text, int x, int y, int font_size, Color color);
-    void init() override;
     void draw2D() override;
-    void mouse_click(Vector2 pos, MouseEventType button) override;
 };
 
 
