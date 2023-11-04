@@ -2,7 +2,7 @@
 #include <UI.h>
 #include <SimpleUIElement.h>
 
-int main(void) {
+int main() {
   const int screenWidth = 800;
   const int screenHeight = 450;
 
