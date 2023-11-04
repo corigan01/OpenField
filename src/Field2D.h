@@ -17,13 +17,15 @@ private:
     const int font_size = 25;
     int rows;
     int columns;
+    int mines;
+    int spaces_remaining;
 
 public:
     Field2D(int rows, int columns, int mines);
     ~Field2D() = default;
 
-    void add_mines(int rows, int columns, int mines);
-    void count_mines(int rows, int columns, int mines);
+    void add_mines();
+    void count_mines();
     void count_around(int row, int column);
     void clear_around(int row, int column);
 

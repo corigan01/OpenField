@@ -27,7 +27,7 @@ int Cell::what_to_draw() {
     }
 }
 
-// -1 clicked mine, 0 nothing happened, 1 clicked clear space
+// -1 clicked mine, 0 nothing happened, 1 clicked clear space, 2 add flag, 3 remove flag
 int Cell::mouse_click(int button) {
     if (isClicked) {
         return 0;
@@ -43,9 +43,10 @@ int Cell::mouse_click(int button) {
     }
     else if (button == 1) {
         isFlagged = !isFlagged;
-        return 0;
+        return isFlagged ? 2 : 3;
     }
     else {
+        // how did we get here
         return 0;
     }
 }

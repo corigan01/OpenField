@@ -12,6 +12,8 @@
 Field2D::Field2D(int rows, int columns, int mines) {
     this->rows = rows;
     this->columns = columns;
+    this->mines = mines;
+    spaces_remaining = rows * columns;
     // ayo gavin tell me a better way to do this
     for (int i = 0; i < rows; i++) {
         std::vector<Cell> temp;
@@ -21,26 +23,16 @@ Field2D::Field2D(int rows, int columns, int mines) {
         field.push_back(temp);
     }
 
-    add_mines(rows, columns, mines);
+    add_mines();
 
     // this is mostly for debugging
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            if (field.at(i).at(j).isMine) {
-                std::cout << "X ";
-            }
-            else {
-                std::cout << field.at(i).at(j).numMines << " ";
-            }
-        }
-        std::cout << std::endl;
-    }
+
 
 
 
 }
 
-void Field2D::add_mines(int rows, int columns, int mines) {
+void Field2D::add_mines() {
     srand(std::time(nullptr)); // why is not allowed?
     int random_variable;
     for (int i = 0; i < mines; i++) {
@@ -66,7 +58,7 @@ void Field2D::count_around(int row, int column) {
 
 
 //not used right now
-void Field2D::count_mines(int rows, int columns, int mines) {
+void Field2D::count_mines() {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
             if (field.at(i).at(j).isMine) {
@@ -99,6 +91,17 @@ void Field2D::draw2D() {
                 DrawText(draw_string, start_x + (j * cell_width) + ((cell_width - MeasureText(draw_string, font_size)) / 2), start_y + (i * cell_height), font_size,
                          BLACK);
             }
+            else if (draw == -2) {
+                DrawRectangleLines(start_x + (j*cell_width), start_y + (i*cell_height), cell_width, cell_height, BLACK);
+                const char* draw_string = "O";
+                DrawText(draw_string, start_x + (j * cell_width) + ((cell_width - MeasureText(draw_string, font_size)) / 2), start_y + (i * cell_height), font_size,
+                         BLACK);
+            }
+            else if (draw == -1) {
+                const char* draw_string = "X";
+                DrawText(draw_string, start_x + (j * cell_width) + ((cell_width - MeasureText(draw_string, font_size)) / 2), start_y + (i * cell_height), font_size,
+                         BLACK);
+            }
         }
     }
 }
@@ -107,18 +110,30 @@ void Field2D::mouse_click(Vector2 pos, MoueClickButton button) {
     if (pos.y >= start_y && pos.y <= (start_y + (rows * cell_height)) && pos.x >= start_x && pos.x <= (start_x + (columns * cell_width))) {
         int row = ((int) pos.y - start_y) / cell_height;
         int column = ((int) pos.x - start_x) / cell_width;
-        std::cout << "row: " << row << " column: " << column << std::endl;
         int b = button == UIElement::MoueClickButton::MOUSE_CLICK_LEFT ? 0 : 1;
         int click_event = field.at(row).at(column).mouse_click((b));
-        if (click_event == 1 && field.at(row).at(column).numMines == 0) {
-            clear_around(row, column);
+        if (click_event == 1) {
+            spaces_remaining--;
+            if (spaces_remaining >= 0) {
+                std::cout << "You Win" << std::endl;
+            }
+            if (field.at(row).at(column).numMines == 0) {
+                clear_around(row, column);
+            }
+        }
+        else if (click_event == 2) {
+            mines--;
+        }
+        else if (click_event == 3) {
+            mines++;
+        }
+        else if (click_event == -1) {
+            std::cout << "You Lose" << std::endl;
         }
     }
 }
 
 void Field2D::clear_around(int row, int column) {
-    int rows = field.size();
-    int columns = field.at(0).size();
     for (int k = (0 > row - 1 ? 0 : row - 1); k < (rows < row + 2 ? rows : row + 2); k++) {
         for (int l = (0 > column - 1 ? 0 : column - 1); l < (columns < column + 2 ? columns : column + 2); l++) {
             mouse_click(Vector2(start_x + (cell_height * l), start_y + (cell_height * k)), UIElement::MoueClickButton::MOUSE_CLICK_LEFT);
