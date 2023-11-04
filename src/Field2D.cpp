@@ -114,7 +114,7 @@ void Field2D::mouse_click(Vector2 pos, MoueClickButton button) {
         int click_event = field.at(row).at(column).mouse_click((b));
         if (click_event == 1) {
             spaces_remaining--;
-            if (spaces_remaining <= 0) {
+            if (spaces_remaining >= 0) {
                 std::cout << "You Win" << std::endl;
             }
             if (field.at(row).at(column).numMines == 0) {

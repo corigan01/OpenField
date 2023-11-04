@@ -13,8 +13,8 @@ int main(void) {
   UI ui {};
 
   // ---- ADD YOUR CLASSES HERE ----
-  //SimpleElement simple {};
-  //ui.add_element(&simple);
+  SimpleElement simple {};
+  ui.add_element(&simple);
 
   Field2D yeah(16, 30, 99);
     ui.add_element(&yeah);
