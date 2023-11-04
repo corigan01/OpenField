@@ -25,7 +25,6 @@ int main(void) {
 
       BeginDrawing();
       ClearBackground(RAYWHITE);
-
       ui.draw2D_all();
 
       EndDrawing();
