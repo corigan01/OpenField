@@ -18,7 +18,9 @@ FetchContent_MakeAvailable(raylib)
 file(GLOB_RECURSE CXX CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp")
 set(PROJECT_INCLUDE "${CMAKE_CURRENT_LIST_DIR}/src/")
 
-add_executable(${PROJECT_NAME})
+add_executable(${PROJECT_NAME}
+        src/Field2D.h
+        src/Field2D.h)
 target_sources(${PROJECT_NAME} PRIVATE ${CXX})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_INCLUDE})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)

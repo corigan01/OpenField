@@ -3,3 +3,13 @@
 ################################################################################
 
 /src/.vs
+*.cmake
+*.txt
+*.check_cache
+*.xml
+*.iml
+cmake-build-debug/
+*.ninja
+*.yaml
+CMakeLists.txt
+CMakeLists.txt
