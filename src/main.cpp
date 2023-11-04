@@ -3,6 +3,7 @@
 #include <TitleScreenUI.h>
 #include <SimpleStartScreenUI.h>
 
+
 int main() {
   const int screenWidth = 800;
   const int screenHeight = 600;
@@ -43,6 +44,7 @@ int main() {
 
   while (!WindowShouldClose()) {
       menuData.update();
+
 
       BeginDrawing();
       ClearBackground(RAYWHITE);
