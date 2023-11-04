@@ -12,14 +12,6 @@ TextUIElement::TextUIElement(const char* text, int x, int y, int font_size, Colo
     text_color = color;
 }
 
-void TextUIElement::init() {
-
-}
-
 void TextUIElement::draw2D() {
     DrawText(text_data, x, y, font, text_color);
-}
-
-void TextUIElement::mouse_click(Vector2 pos, MouseEventType button) {
-
 }
