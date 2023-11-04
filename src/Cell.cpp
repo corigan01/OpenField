@@ -23,7 +23,7 @@ int Cell::what_to_draw() {
         return -2;
     }
     else {
-        return -1;
+        return -3;
     }
 }
 

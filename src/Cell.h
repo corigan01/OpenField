@@ -13,7 +13,7 @@ public:
     int x;
     int y;
     bool isMine { false };
-    int numMines { -1 };
+    int numMines { 0 };
     Cell(int xLocation, int yLocation);
     ~Cell() = default;
 

@@ -6,8 +6,12 @@
 #include <iostream>
 #include "Field2D.h"
 
-Field2D::Field2D(int rows, int columns, int mines) {
 
+#include <chrono>
+
+Field2D::Field2D(int rows, int columns, int mines) {
+    this->rows = rows;
+    this->columns = columns;
     // ayo gavin tell me a better way to do this
     for (int i = 0; i < rows; i++) {
         std::vector<Cell> temp;
@@ -17,58 +21,107 @@ Field2D::Field2D(int rows, int columns, int mines) {
         field.push_back(temp);
     }
 
-    srand(std::time(nullptr)); // why is not allowed?
-    int random_variable;
-    int remainder;
-    for (int i = 0; i < mines; i++) {
+    add_mines(rows, columns, mines);
 
-        do {
-            random_variable = rand() % (rows * columns);
-        } while (field.at(random_variable % rows).at(random_variable / rows).isMine);
-
-        field.at(random_variable % rows).at(random_variable / rows).isMine = true;
-    }
-
-    // GAZE UPON ITS GLORY
+    // this is mostly for debugging
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-            int surrounding_mines = 0;
-            for (int k = (0 > i - 1  ? 0 : i - 1); k < (rows < i + 1 ? rows : i + 1); k++) {
-                for (int l = (0 > j - 1  ? 0 : j - 1); l < (columns < j + 1 ? columns : j + 1); l++) {
-                    if (field.at(k).at(l).isMine && !(k == 0 && l == 0)) {
-                        surrounding_mines++;
-                    }
-                }
+            if (field.at(i).at(j).isMine) {
+                std::cout << "X ";
             }
-            field.at(i).at(j).numMines = surrounding_mines;
-        }
-    }
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            std::cout << field.at(i).at(j).numMines << " ";
+            else {
+                std::cout << field.at(i).at(j).numMines << " ";
+            }
         }
         std::cout << std::endl;
     }
 
 
+
+}
+
+void Field2D::add_mines(int rows, int columns, int mines) {
+    srand(std::time(nullptr)); // why is not allowed?
+    int random_variable;
+    for (int i = 0; i < mines; i++) {
+        do {
+            random_variable = rand() % (rows * columns);
+        } while (field.at(random_variable % rows).at(random_variable / rows).isMine);
+
+        field.at(random_variable % rows).at(random_variable / rows).isMine = true;
+        count_around(random_variable % rows, random_variable / rows);
+
+    }
+}
+
+void Field2D::count_around(int row, int column) {
+    int rows = field.size();
+    int columns = field.at(0).size();
+    for (int k = (0 > row - 1 ? 0 : row - 1); k < (rows < row + 2 ? rows : row + 2); k++) {
+        for (int l = (0 > column - 1 ? 0 : column - 1); l < (columns < column + 2 ? columns : column + 2); l++) {
+            field.at(k).at(l).numMines++;
+        }
+    }
+}
+
+
+//not used right now
+void Field2D::count_mines(int rows, int columns, int mines) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if (field.at(i).at(j).isMine) {
+                for (int k = (0 > i - 1 ? 0 : i - 1); k < (rows < i + 1 ? rows : i + 1); k++) {
+                    for (int l = (0 > j - 1 ? 0 : j - 1); l < (columns < j + 1 ? columns : j + 1); l++) {
+                        if (!field.at(k).at(l).isMine) {
+                            field.at(k).at(l).numMines++;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 void Field2D::init() {
-    // Do nothing
+    // nothing right now
 }
 
 void Field2D::draw2D() {
     int draw;
-    for(std::vector<Cell> v : field) {
-        for(Cell c : v) {
-            draw = c.what_to_draw();
-            // do some drawing
+    for(int i = 0; i < field.size(); i++) {
+        for(int j = 0; j < field.at(i).size(); j++) {
+            draw = field.at(i).at(j).what_to_draw();
+            if (draw == -3) {
+                DrawRectangleLines(start_x + (j*cell_width), start_y + (i*cell_height), cell_width, cell_height, BLACK);
+            }
+            else if (draw > 0) {
+                const char* draw_string = std::to_string(draw).c_str();
+                DrawText(draw_string, start_x + (j * cell_width) + ((cell_width - MeasureText(draw_string, font_size)) / 2), start_y + (i * cell_height), font_size,
+                         BLACK);
+            }
         }
     }
 }
 
 void Field2D::mouse_click(Vector2 pos, MoueClickButton button) {
-    // find what cell (if any) was clicked on
-    // click it
+    if (pos.y >= start_y && pos.y <= (start_y + (rows * cell_height)) && pos.x >= start_x && pos.x <= (start_x + (columns * cell_width))) {
+        int row = ((int) pos.y - start_y) / cell_height;
+        int column = ((int) pos.x - start_x) / cell_width;
+        std::cout << "row: " << row << " column: " << column << std::endl;
+        int b = button == UIElement::MoueClickButton::MOUSE_CLICK_LEFT ? 0 : 1;
+        int click_event = field.at(row).at(column).mouse_click((b));
+        if (click_event == 1 && field.at(row).at(column).numMines == 0) {
+            clear_around(row, column);
+        }
+    }
+}
+
+void Field2D::clear_around(int row, int column) {
+    int rows = field.size();
+    int columns = field.at(0).size();
+    for (int k = (0 > row - 1 ? 0 : row - 1); k < (rows < row + 2 ? rows : row + 2); k++) {
+        for (int l = (0 > column - 1 ? 0 : column - 1); l < (columns < column + 2 ? columns : column + 2); l++) {
+            mouse_click(Vector2(start_x + (cell_height * l), start_y + (cell_height * k)), UIElement::MoueClickButton::MOUSE_CLICK_LEFT);
+        }
+    }
 }

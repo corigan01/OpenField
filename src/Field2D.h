@@ -12,13 +12,20 @@ private:
     std::vector<std::vector<Cell>>field;
     const int cell_width = 25;
     const int cell_height = 25;
-    const int start_x = 50;
-    const int start_y = 50;
+    const int start_x = 25;
+    const int start_y = 25;
+    const int font_size = 25;
+    int rows;
+    int columns;
 
 public:
     Field2D(int rows, int columns, int mines);
     ~Field2D() = default;
 
+    void add_mines(int rows, int columns, int mines);
+    void count_mines(int rows, int columns, int mines);
+    void count_around(int row, int column);
+    void clear_around(int row, int column);
 
     void init() override;
     void draw2D() override;
