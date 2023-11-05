@@ -7,6 +7,7 @@
 
 
 #include "UIElement.h"
+#include "MineFieldLogic.h"
 
 class Render3DUIElement : public UIElement  {
 
@@ -22,12 +23,18 @@ private:
     Rectangle destRec;
     Camera camera;
     Vector3 cubePosition;
+    Vector3 cubeSize;
+
+    //store because this doesn't change
+    MineFieldLogic::CellPos board_size;
+
 
 public:
     Render3DUIElement();
     ~Render3DUIElement() = default;
 
-    void draw2D();
+    void draw2D() override;
+    void mouse_click(Vector2 pos, MouseEventType button) override;
 };
 
 

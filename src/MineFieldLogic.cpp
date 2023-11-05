@@ -164,7 +164,7 @@ void MineFieldLogic::register_pick(CellPos pos) {
 void MineFieldLogic::register_flag(CellPos pos) {
     GameField::Cell* cell = m_field.get_cell(pos.x, pos.y, pos.z);
     cell->is_flagged = !cell->is_flagged;
-    mines_flagged += cell->is_flagged ? 1 : 0;
+    mines_flagged += cell->is_flagged ? 1 : -1;
     check_for_finished();
 }
 
@@ -196,4 +196,12 @@ void MineFieldLogic::debug_print_to_terminal(int z) {
         }
         cout << endl;
     }
+}
+
+int MineFieldLogic::get_flags() {
+    return mines_flagged;
+}
+
+MineFieldLogic::CellPos MineFieldLogic::get_field_size() {
+    return CellPos{m_field.x(), m_field.y(), m_field.z()};
 }

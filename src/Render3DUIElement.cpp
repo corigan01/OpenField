@@ -2,7 +2,12 @@
 // Created by Owner on 11/4/2023.
 //
 
+
+#include <chrono>
+#include <iostream>
+
 #include "Render3DUIElement.h"
+
 
 #if defined(PLATFORM_DESKTOP)
     #define GLSL_VERSION        330
@@ -18,14 +23,14 @@ Render3DUIElement::Render3DUIElement() {
     // VR device parameters definition
     device = {
             // Oculus Rift CV1 parameters for simulator
-            .hResolution = 2160,                 // Horizontal resolution in pixels
-            .vResolution = 1200,                 // Vertical resolution in pixels
+            .hResolution = 3664,                 // Horizontal resolution in pixels
+            .vResolution = 1920,                 // Vertical resolution in pixels
             .hScreenSize = 0.133793f,            // Horizontal size in meters
             .vScreenSize = 0.0669f,              // Vertical size in meters
             .vScreenCenter = 0.04678f,           // Screen center in meters
             .eyeToScreenDistance = 0.041f,       // Distance between eye and display in meters
-            .lensSeparationDistance = 0.07f,     // Lens separation distance in meters
-            .interpupillaryDistance = 0.07f,     // IPD (distance between pupils) in meters
+            .lensSeparationDistance = 0.068f,     // Lens separation distance in meters
+            .interpupillaryDistance = 0.068f,     // IPD (distance between pupils) in meters
 
             // NOTE: CV1 uses fresnel-hybrid-asymmetric lenses with specific compute shaders
             // Following parameters are just an approximation to CV1 distortion stereo rendering
@@ -37,7 +42,7 @@ Render3DUIElement::Render3DUIElement() {
     config = LoadVrStereoConfig(device);
 
     // Distortion shader (uses device lens distortion and chroma)
-    distortion = LoadShader(0, TextFormat("resources/distortion%i.fs", GLSL_VERSION));
+    distortion = LoadShader(0, TextFormat("../resources/distortion%i.fs", GLSL_VERSION));
 
     // Update distortion shader with lens and distortion-scale parameters
     SetShaderValue(distortion, GetShaderLocation(distortion, "leftLensCenter"),
@@ -75,8 +80,14 @@ Render3DUIElement::Render3DUIElement() {
     camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
 
     cubePosition = { 0.0f, 0.0f, 0.0f };
+    cubeSize = {1.0f, 1.0f, 1.0f};
 
     DisableCursor();                    // Limit cursor to relative movement inside the window
+
+    // this will likely be made elseware later
+    MineFieldLogic field = MineFieldLogic(30, 16);
+
+    board_size = field.get_field_size();
 
 }
 
@@ -94,9 +105,18 @@ void Render3DUIElement::draw2D() {
     BeginVrStereoMode(config);
     BeginMode3D(camera);
 
-    DrawCube(cubePosition, 2.0f, 2.0f, 2.0f, RED);
-    DrawCubeWires(cubePosition, 2.0f, 2.0f, 2.0f, MAROON);
-    DrawGrid(40, 1.0f);
+
+    for (int x = 0; x < board_size.x; x++ ) {
+        for (int y = 0; y < board_size.y; y++) {
+            for (int z = 0; z < board_size.z; z++) {
+                DrawCube(Vector3{cubePosition.x + (cubeSize.x*x), cubePosition.z + (cubeSize.z*z), cubePosition.y + (cubeSize.y*y)}, cubeSize.x, cubeSize.y, cubeSize.z, WHITE);
+                DrawCubeWires(Vector3{cubePosition.x + (cubeSize.x*x), cubePosition.z + (cubeSize.z*z), cubePosition.y + (cubeSize.y*y)}, cubeSize.x, cubeSize.y, cubeSize.z, MAROON);
+            }
+        }
+    }
+
+
+    //DrawGrid(40, 1.0f);
 
     EndMode3D();
     EndVrStereoMode();
@@ -110,4 +130,13 @@ void Render3DUIElement::draw2D() {
     DrawFPS(10, 10);
     EndDrawing();
     //----------------------------------------------------------------------------------
+}
+
+void Render3DUIElement::mouse_click(Vector2 pos, UIElement::MouseEventType button) {
+    if (button == Render3DUIElement::MouseEventType::MOUSE_CLICK_LEFT) {
+        std::cout << "left click (" << pos.x << "," << pos.y << ")" << std::endl;
+    }
+    else if (button == Render3DUIElement::MouseEventType::MOUSE_CLICK_RIGHT)  {
+        std::cout << "right click (" << pos.x << "," << pos.y << ")" << std::endl;
+    }
 }

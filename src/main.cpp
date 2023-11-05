@@ -3,7 +3,7 @@
 #include <TitleScreenUI.h>
 #include <GameScreenUI.h>
 #include <WinLoseScreenUI.h>
-#include <Render3DUIElement.h>
+#include <ThreeDUI.h>
 
 int main() {
     const int screenWidth = 1920;
@@ -14,7 +14,7 @@ int main() {
 
     InitWindow(screenWidth, screenHeight, "OpenField");
     SetTargetFPS(60);
-    Render3DUIElement thing {};
+
     MenuMeta menuData {};
 
     // Cell Drawing Class
@@ -47,21 +47,23 @@ int main() {
     WinLoseScreenUI lose { false };
     menuData.add_menu("lost", &lose);
 
-    menuData.switch_menu("title");
+    ThreeDUI thing {};
+    menuData.add_menu("main", &thing);
+
+    menuData.switch_menu("main");
 
     while (!WindowShouldClose()) {
-        thing.draw2D();
-        /*
+
       menuData.update();
 
 
-      BeginDrawing();
-      ClearBackground(RAYWHITE);
+      //BeginDrawing();
+      //ClearBackground(RAYWHITE);
       menuData.draw2D();
 
-      DrawFPS(10, 10);
-      EndDrawing();
-     */
+      //DrawFPS(10, 10);
+      //EndDrawing();
+
     }
 
     CloseWindow(); // Close window and OpenGL context

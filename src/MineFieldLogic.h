@@ -38,6 +38,9 @@ public:
     MineFieldLogic(int x, int y, int z);
     MineFieldLogic(int x, int y);
 
+    int get_flags();
+    CellPos get_field_size();
+
     void reset_game();
     void distribute_mines(int mines_count = 10);
     void populate_numbers();
