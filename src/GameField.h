@@ -7,9 +7,10 @@
 #include <cassert>
 #include <cstdlib>
 
-#define IS_NUMBER_CELL(cell) ((cell)->m_number > 0)
-#define IS_EMPTY_CELL(cell) ((cell)->m_number == GameField::MineState::EMPTY_SPACE)
-#define IS_MINE_CELL(cell) ((cell)->m_number == GameField::MineState::CONTAINS_MINE)
+#define IS_NUMBER_CELL(cell) ((cell)->state > 0)
+#define IS_EMPTY_CELL(cell) ((cell)->state == GameField::MineState::EMPTY_SPACE)
+#define IS_MINE_CELL(cell) ((cell)->state == GameField::MineState::CONTAINS_MINE)
+#define INT_TO_MINE_STATE(val) ((GameField::MineState)(val))
 
 class GameField {
 public:
@@ -19,8 +20,9 @@ public:
     };
 
     struct Cell {
-        MineState m_number = MineState::EMPTY_SPACE;
+        MineState state = MineState::EMPTY_SPACE;
         bool is_hidden = true;
+        bool is_flagged = false;
     };
 
 private:
@@ -33,6 +35,8 @@ public:
     GameField(int x, int y);
     GameField(int x, int y, int z);
     ~GameField();
+
+    void reset();
 
     [[nodiscard]] Cell* get_cell(int x, int y, int z) const;
     [[nodiscard]] Cell* get_cell(int x, int y) const;

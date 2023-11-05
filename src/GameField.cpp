@@ -24,8 +24,13 @@ GameField::~GameField() {
 }
 
 GameField::Cell* GameField::get_cell(int x, int y, int z) const {
-    size_t offset = (x % size_x) + ((y % size_y) * size_x) + ((x % size_z) * (size_x * size_y));
-    assert(offset <= size_bytes_sanity_check);
+    assert(x < size_x);
+    assert(y < size_y);
+    assert(z < size_z);
+
+    size_t offset = (x % size_x) + ((y % size_y) * size_x) + ((z % size_z) * (size_x * size_y));
+    assert(offset < size_bytes_sanity_check);
+
     return &m_board[offset];
 }
 
@@ -43,4 +48,10 @@ int GameField::y() const {
 
 int GameField::z() const {
     return size_z;
+}
+
+void GameField::reset() {
+    for (size_t cell = 0; cell < (size_x * size_y * size_z); cell++) {
+        m_board[cell] = Cell {};
+    }
 }
