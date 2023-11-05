@@ -3,6 +3,7 @@
 //
 
 #include "GameScreenUI.h"
+#include "MineFieldLogic.h"
 
 GameScreenUI::GameScreenUI() {
     logic.distribute_mines(10);

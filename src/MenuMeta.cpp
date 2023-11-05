@@ -31,6 +31,7 @@ int MenuMeta::switch_menu(const char* menu_to_start) {
     SetWindowTitle(menu->name);
     menu->ui->init_all();
     current_ui = menu;
+    return 0;
 }
 
 void MenuMeta::draw2D() {
