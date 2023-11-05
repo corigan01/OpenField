@@ -3,17 +3,18 @@
 #include <TitleScreenUI.h>
 #include <GameScreenUI.h>
 #include <WinLoseScreenUI.h>
+#include <Render3DUIElement.h>
 
 int main() {
-    const int screenWidth = 800;
-    const int screenHeight = 600;
+    const int screenWidth = 1920;
+    const int screenHeight = 1080;
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     SetConfigFlags(FLAG_MSAA_4X_HINT);
 
     InitWindow(screenWidth, screenHeight, "OpenField");
     SetTargetFPS(60);
-
+    Render3DUIElement thing {};
     MenuMeta menuData {};
 
     // Cell Drawing Class
@@ -49,6 +50,8 @@ int main() {
     menuData.switch_menu("title");
 
     while (!WindowShouldClose()) {
+        thing.draw2D();
+        /*
       menuData.update();
 
 
@@ -58,6 +61,7 @@ int main() {
 
       DrawFPS(10, 10);
       EndDrawing();
+     */
     }
 
     CloseWindow(); // Close window and OpenGL context

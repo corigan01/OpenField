@@ -9,6 +9,20 @@
 #include "UIElement.h"
 
 class Render3DUIElement : public UIElement  {
+
+private:
+    const int screenWidth = 800;
+    const int screenHeight = 450;
+
+    VrDeviceInfo device;
+    VrStereoConfig config;
+    Shader distortion;
+    RenderTexture2D target;
+    Rectangle sourceRec;
+    Rectangle destRec;
+    Camera camera;
+    Vector3 cubePosition;
+
 public:
     Render3DUIElement();
     ~Render3DUIElement() = default;
