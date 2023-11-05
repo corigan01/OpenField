@@ -12,7 +12,11 @@ ButtonUIElement::ButtonUIElement(int x, int y, int width, int height) {
 }
 
 void ButtonUIElement::draw2D() {
+    DrawRectangleLines(x, y, width, height, BLACK);
+
+    if (is_hidden) return;
     DrawRectangle(x, y, width, height, BLUE);
+
 }
 
 void ButtonUIElement::mouse_click(Vector2 pos, MouseEventType button) {
@@ -35,3 +39,8 @@ bool ButtonUIElement::is_clicked() {
     had_been_clicked = false;
     return clicked;
 }
+
+void ButtonUIElement::set_hidden(bool hidden) {
+    is_hidden = hidden;
+}
+
